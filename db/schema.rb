@@ -9,16 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100317062400) do
+ActiveRecord::Schema.define(:version => 20100319102139) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
-    t.string   "url"
     t.datetime "starttime"
     t.datetime "endtime"
-    t.boolean  "all_day",    :default => false
+    t.boolean  "all_day",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
 end

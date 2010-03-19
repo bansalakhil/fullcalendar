@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
     events = [] 
     @events.each do |event|
-      events << {:id => event.id, :title => event.title, :description => "Some cool description comes here...", :url => event.url, :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day}
+      events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day}
     end
     render :text => events.to_json
   end
@@ -35,5 +35,19 @@ class EventsController < ApplicationController
       @event.save
     end    
   end
+  
+  def edit
+    @event = Event.find_by_id(params[:id])
+  end
+  
+  def update
+    @event = Event.find_by_id(params[:event][:id])
+    @event.attributes = params[:event]
+    @event.save
+    render :update do |page|
+      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
+      page<<"$('#desc_dialog').dialog('destroy')" 
+    end
+  end  
   
 end
