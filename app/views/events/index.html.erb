@@ -1,0 +1,70 @@
+<script>
+  
+  
+  $(document).ready(function(){
+      // page is now ready, initialize the calendar...
+      $('#calendar').fullCalendar({
+          editable: true,
+          header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay'
+          },
+          defaultView: 'agendaWeek',
+          height: 600,
+          slotMinutes: 15,
+          loading: function(bool){
+              if (bool) 
+                  $('#loading').show();
+              else 
+                  $('#loading').hide();
+          },
+          events: "/events/get_events",
+          timeFormat: 'h:mm t{ - h:mm t} ',
+          dragOpacity: "0.5",
+          eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+              if (confirm("Are you sure about this change?")) {
+                  moveEvent(event, dayDelta, minuteDelta, allDay);
+              }
+              else {
+                  revertFunc();
+              }
+          },
+          
+          eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+              if (confirm("Are you sure about this change?")) {
+                  resizeEvent(event, dayDelta, minuteDelta);
+              }
+              else {
+                  revertFunc();
+              }
+          },
+          
+          eventRender: function(event, element){
+              element.qtip({
+                  show: {
+                    solo: true,
+                  },
+                  content: event.description,
+                     position: {
+                       corner: {
+                          target: 'topLeft',
+                          tooltip: 'bottomLeft'
+                       }
+                     },
+
+                  style: { 
+                      name: 'red',
+                      tip: 'bottomMiddle', 
+                  }
+
+              });
+          },
+          
+          
+          
+      });
+  });
+</script>
+<div id='calendar'>
+</div>
