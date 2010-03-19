@@ -11,7 +11,7 @@
               right: 'month,agendaWeek,agendaDay'
           },
           defaultView: 'agendaWeek',
-          height: 600,
+          height: 500,
           slotMinutes: 15,
           loading: function(bool){
               if (bool) 
@@ -43,28 +43,30 @@
           eventRender: function(event, element){
               element.qtip({
                   show: {
-                    solo: true,
+                      solo: true,
                   },
                   content: event.description,
-                     position: {
-                       corner: {
+                  position: {
+                      corner: {
                           target: 'topLeft',
                           tooltip: 'bottomLeft'
-                       }
-                     },
-
-                  style: { 
+                      }
+                  },
+                  
+                  style: {
                       name: 'red',
-                      tip: 'bottomMiddle', 
+                      tip: 'bottomMiddle',
                   }
-
+              
               });
           },
-          
-          
-          
+      
+      
+      
       });
   });
 </script>
-<div id='calendar'>
+<div style ="width:800px;"
+  <div id='calendar'>
+  </div>
 </div>
