@@ -31,9 +31,7 @@ class EventsController < ApplicationController
   def resize
     @event = Event.find_by_id params[:id]
     if @event
-#      @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
       @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
-#      @event.all_day = params[:all_day]
       @event.save
     end    
   end
