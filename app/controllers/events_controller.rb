@@ -1,5 +1,17 @@
 class EventsController < ApplicationController
+
+  def new
+    @event = Event.new
+  end
   
+  def create
+    @event = Event.new(params[:event])
+    @event.save
+    render :update do |page|
+      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
+      page<<"$('#create_event_dialog').dialog('destroy')" 
+    end    
+  end
   
   def index
     
@@ -49,5 +61,15 @@ class EventsController < ApplicationController
       page<<"$('#desc_dialog').dialog('destroy')" 
     end
   end  
+  
+  def destroy
+    @event = Event.find_by_id(params[:id])
+    @event.destroy
+    render :update do |page|
+      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
+      page<<"$('#desc_dialog').dialog('destroy')" 
+    end
+    
+  end
   
 end

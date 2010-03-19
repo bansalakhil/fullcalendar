@@ -1,3 +1,7 @@
+<p>
+  <%=link_to_remote 'Create Event', :url => {:action => :new} %>
+</p>
+
 <script>
   
   
@@ -61,5 +65,10 @@
   <br/>
   <div id = "event_actions">
     <span id = "edit_event"></span>
+    <span id = "delete_event"></span>
+  </div>
+</div>
+<div id = "create_event_dialog" style ="display:none;">
+  <div id = "create_event">
   </div>
 </div>

@@ -22,6 +22,7 @@ function resizeEvent(event, dayDelta, minuteDelta){
 function showEventDetails(event){
     $('#event_desc').html(event.description);
     $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent("+event.id+")'>Edit</a>");
+    $('#delete_event').html("<a href = 'javascript:void(0);' onclick ='deleteEvent("+event.id+")'>Delete</a>");
     $('#desc_dialog').dialog({
         title: event.title,
         modal: true,
@@ -39,5 +40,14 @@ function editEvent(event_id){
         dataType: 'script',
         type: 'get',
         url: "/events/edit"
+    });  
+}
+
+function deleteEvent(event_id){
+    jQuery.ajax({
+        data: 'id=' + event_id,
+        dataType: 'script',
+        type: 'post',
+        url: "/events/destroy"
     });  
 }
